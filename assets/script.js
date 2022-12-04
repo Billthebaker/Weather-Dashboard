@@ -12,8 +12,9 @@ fetch(requestUrl)
     return response.json()
 }).then(function(data) {
   console.log(data)
-  console.log(data.list[0].main.temp)
   tempEl.textContent= data.list[0].main.temp
+  windEl.textContent= data.list[0].wind.speed
+  humidEl.textContent= data.list[0].main.humidity
 });
 
 }
