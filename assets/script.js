@@ -17,18 +17,27 @@ var wind2 = document.getElementById('wind-1');
 var wind3 = document.getElementById('wind-2');
 var wind4 = document.getElementById('wind-3');
 var wind5 = document.getElementById('wind-4');
+var date1 = document.getElementById('date1');
+var date2 = document.getElementById('date2');
+var date3 = document.getElementById('date3');
+var date4 = document.getElementById('date4');
+var date5 = document.getElementById('date5');
 
 
 
 
 
 function callApi(location){
-  var requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + location + '&appid=4dacd660c3a2d3652f3f05fffb1b0e8d&units=imperial'
+  var requestUrl = 'https://api.openweathermap.org/data/2.5/forecast/?q=' + location + '&appid=4dacd660c3a2d3652f3f05fffb1b0e8d&units=imperial'
 fetch(requestUrl)
   .then(function (response) {
     return response.json()
 }).then(function(data) {
   console.log(data)
+  var resultArray = data.list;
+        for ( var i = 0; i < resultArray.length; i++) {
+          if (resultArray[i].dt_txt.split(' ')[1] === '12:00:00') {
+            console.log(resultArray[i]);
 
   tempEl.textContent= data.list[0].main.temp
   windEl.textContent= data.list[0].wind.speed
@@ -48,9 +57,14 @@ fetch(requestUrl)
   wind3.textContent = data.list[3].wind.speed
   wind4.textContent = data.list[4].wind.speed
   wind5.textContent = data.list[5].wind.speed
-});
-
+  date1.textContent = data.list[1].dt_txt
+  date2.textContent = data.list[2].dt_txt
+  date3.textContent = data.list[3].dt_txt
+  date4.textContent = data.list[4].dt_txt
+  date5.textContent = data.list[i].dt_txt
+}}});
 }
+
 
 
 
@@ -66,6 +80,5 @@ function getWeather(event){
   callApi(location);
 
 }
-
 
 searchBtn.addEventListener('click',getWeather)
